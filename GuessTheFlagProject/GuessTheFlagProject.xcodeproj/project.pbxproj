@@ -24,6 +24,7 @@
 		369AD88C29A3A5F40067495B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		369AD88F29A3A5F40067495B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		369AD89129A3A5F40067495B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		36ED3C5629A4DB35001E0EDC /* Tasks.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Tasks.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +64,7 @@
 				369AD88C29A3A5F40067495B /* Assets.xcassets */,
 				369AD88E29A3A5F40067495B /* LaunchScreen.storyboard */,
 				369AD89129A3A5F40067495B /* Info.plist */,
+				36ED3C5629A4DB35001E0EDC /* Tasks.md */,
 			);
 			path = GuessTheFlagProject;
 			sourceTree = "<group>";

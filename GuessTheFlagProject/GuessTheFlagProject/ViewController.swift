@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     var countries = [String]()
     var score = 0
     var correctAnswer = 0
+    var quantityTapped = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,25 +40,51 @@ class ViewController: UIViewController {
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
         
-        title = countries[correctAnswer].uppercased()
+        title = countries[correctAnswer].uppercased() + "  Score: " + String(score)
     }
 
     @IBAction func buttonTapped(_ sender: UIButton) {
-        var title: String
-        
-        if sender.tag == correctAnswer {
-            title = "Correct"
+      
+        func scorePlus(title: String = "Correct") {
             score += 1
-        } else {
-            title = "Wrong"
-            score -= 1
+            let ac = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
+            present(ac, animated: true)
         }
         
-        let ac = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
+        func scoreMinus(title: String = "Wrong") {
+            score -= 1
+            let ac = UIAlertController(title: title, message: "You chose: \(countries[sender.tag].uppercased()) " + "Your score is \(score)", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
+            present(ac, animated: true)
+        }
         
-        ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
+        func endGame(title: String = "End Game") {
+            let qt = UIAlertController(title: title, message: "Your score: \(score)", preferredStyle: .alert)
+            qt.addAction(UIAlertAction(title: "Repeat", style: .default, handler: askQuestion))
+            present(qt, animated: true)
+        }
         
-        present(ac, animated: true)
+        if sender.tag == correctAnswer && quantityTapped < 10 {
+            scorePlus()
+            quantityTapped += 1
+        }
+        else if sender.tag != correctAnswer && quantityTapped < 10 {
+            scoreMinus()
+            quantityTapped += 1
+        }
+        else if sender.tag == correctAnswer && quantityTapped == 10 {
+            score += 1
+            endGame()
+            score = 0
+            quantityTapped = 0
+        }
+        else if sender.tag != correctAnswer && quantityTapped == 10 {
+            score -= 1
+            endGame()
+            score = 0
+            quantityTapped = 0
+        }
     }
 }
 
