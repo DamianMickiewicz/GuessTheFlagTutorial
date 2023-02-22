@@ -43,48 +43,41 @@ class ViewController: UIViewController {
         title = countries[correctAnswer].uppercased() + "  Score: " + String(score)
     }
 
+    func scorePlus(title: String = "Correct") {
+        score += 1
+        //let ac = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
+        //ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
+        //present(ac, animated: true)
+    }
+    
+    func scoreMinus(title: String = "Wrong", index: Int) {
+        score -= 1
+        let ac = UIAlertController(title: title, message: "You chose: \(countries[index].uppercased()) " + "Your score is \(score)", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
+        present(ac, animated: true)
+    }
+    
+    func endGame(title: String = "End Game") {
+        let qt = UIAlertController(title: title, message: "Your score: \(score)", preferredStyle: .alert)
+        qt.addAction(UIAlertAction(title: "Repeat", style: .default, handler: askQuestion))
+        present(qt, animated: true)
+    }
+    
+    func isCorrectAnswer(buttonId: Int) -> Bool {
+        return buttonId == correctAnswer
+    }
+    
     @IBAction func buttonTapped(_ sender: UIButton) {
       
-        func scorePlus(title: String = "Correct") {
-            score += 1
-            let ac = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
-            present(ac, animated: true)
-        }
-        
-        func scoreMinus(title: String = "Wrong") {
-            score -= 1
-            let ac = UIAlertController(title: title, message: "You chose: \(countries[sender.tag].uppercased()) " + "Your score is \(score)", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
-            present(ac, animated: true)
-        }
-        
-        func endGame(title: String = "End Game") {
-            let qt = UIAlertController(title: title, message: "Your score: \(score)", preferredStyle: .alert)
-            qt.addAction(UIAlertAction(title: "Repeat", style: .default, handler: askQuestion))
-            present(qt, animated: true)
-        }
-        
-        if sender.tag == correctAnswer && quantityTapped < 10 {
+        if isCorrectAnswer(buttonId: sender.tag) && quantityTapped < 3 {
             scorePlus()
-            quantityTapped += 1
+        } else {
+            scoreMinus(index: sender.tag)
         }
-        else if sender.tag != correctAnswer && quantityTapped < 10 {
-            scoreMinus()
-            quantityTapped += 1
-        }
-        else if sender.tag == correctAnswer && quantityTapped == 10 {
-            score += 1
+        quantityTapped += 1
+        
+        if quantityTapped == 3 {
             endGame()
-            score = 0
-            quantityTapped = 0
-        }
-        else if sender.tag != correctAnswer && quantityTapped == 10 {
-            score -= 1
-            endGame()
-            score = 0
-            quantityTapped = 0
         }
     }
 }
-

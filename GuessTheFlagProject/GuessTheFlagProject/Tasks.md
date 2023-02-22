@@ -8,3 +8,7 @@
     
 3. When someone chooses the wrong flag, tell them their mistake in your alert message.
     let ac = UIAlertController(title: title, message: "You chose: \(countries[sender.tag].uppercased()) " + "Your score is \(score)", preferredStyle: .alert)
+
+4. Zamien dodatkowe klikniecia. quantityTapped na funkcje. Oddzielenie logiki biznesowej od widoku.
+
+5. Jezeli 10 to nie wyswietlaj monitu 
